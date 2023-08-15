@@ -11,9 +11,9 @@ const database = mysql.createPool({
 });
 
 database
-.query("SELECT * FROM users")
-.then(([users])=>{
-    console.log([users])
+.query("SELECT * FROM movies")
+.then(([movies])=>{
+    console.log([movies])
 })
 .catch((err)=>{
     console.log(err)
