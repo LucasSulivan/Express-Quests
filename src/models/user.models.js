@@ -29,6 +29,13 @@ const update = (id,body)=> {
     .then(([updateUser])=> updateUser)
 }
 
+// DELETE USER FROM DATABASE
+
+const deleteUser =(id)=> {
+    return database.query(`DELETE FROM users WHERE id=${id}`)
+    .then(([deleted])=> deleted)
+}
+
 
 
 
@@ -37,5 +44,6 @@ module.exports = {
     get,
     getUserById,
     create,
-    update
+    update,
+    deleteUser
 }

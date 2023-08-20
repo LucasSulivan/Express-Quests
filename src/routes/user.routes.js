@@ -15,4 +15,9 @@ userRoutes.post("/",userController.postUser)
 
 userRoutes.put("/:id",userController.updateUser)
 
+// USING DELETE ( DELETE IN DATABASE)
+
+userRoutes.delete("/:id",userController.deleteUser)
+
+
 module.exports = userRoutes

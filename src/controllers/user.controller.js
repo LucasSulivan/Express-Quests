@@ -78,11 +78,30 @@ const updateUser = (req,res)=>{
 }
 
 
+// DELETE USER FROM DATA BASE USING DELETE
+const deleteUser = (req,res)=> {
+    const { id } = req.params
+    userModels.deleteUser(id)
+    .then((deleteUser)=>{
+        if(deleteUser.affectedRows === 0){
+            res.status(404).send("User not found")
+        } else {
+            res.sendStatus(204)
+        }
+    })
+    .catch((error)=>{
+        console.error(error)
+        res.status(500).send("Error deleting the user")
+    })
+}
+
+
+
 
 module.exports = {
-    welcome,
     getUser,
     getUserById,
     postUser,
-    updateUser
+    updateUser,
+    deleteUser
 }
