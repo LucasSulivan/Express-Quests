@@ -10,15 +10,6 @@ const database = mysql.createPool({
     database: process.env.DB_NAME
 });
 
-database
-.query("SELECT * FROM movies")
-.then(([movies])=>{
-    console.log([movies])
-})
-.catch((err)=>{
-    console.log(err)
-})
-
 
 database.getConnection()
 .then(()=>{
