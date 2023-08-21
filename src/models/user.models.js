@@ -2,8 +2,8 @@ const database = require("../../database")
 
 // READ ALL USERS FROM DATABASE
 
-const get=()=>{
-    return database.query("SELECT * FROM users")
+const get=(sqlQuery,sqlConditions)=>{
+    return database.query(sqlQuery,sqlConditions)
     .then(([users])=>users)
 }
 

@@ -5,7 +5,23 @@ const userModels = require("../models/user.models")
 // READ THE ALL USERS FROM DATABASE
 
 const getUser = (req,res)=> {
-    userModels.get()
+    let sqlQuery = "SELECT * FROM users"
+    const sqlConditions = []
+
+    if(req.query.language != null){
+        sqlQuery+= " WHERE language=?"
+        sqlConditions.push(req.query.language)
+    }
+    if(req.query.city != null && req.query.language != null){
+        sqlQuery+=" AND city=?"
+        sqlConditions.push(req.query.city)
+    }else if(req.query.city != null){
+        sqlQuery+=" WHERE city=?"
+        sqlConditions.push(req.query.city)
+    }
+
+
+    userModels.get(sqlQuery,sqlConditions)
     .then((users)=>{
         if(users !== null && users.length > 0){
             res.status(200).send(users)
