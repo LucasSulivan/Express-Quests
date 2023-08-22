@@ -1,6 +1,7 @@
 const express = require("express")
 const userController = require("../controllers/user.controller")
 const userRoutes = express.Router();
+const { hashPassword } = require("../Auth/auth")
 
 // USING GET ( READ DATABASE)
 
@@ -9,11 +10,11 @@ userRoutes.get("/:id",userController.getUserById)
 
 // USING POST ( CREATE IN DATABASE) 
 
-userRoutes.post("/",userController.postUser)
+userRoutes.post("/",hashPassword,userController.postUser)
 
 // USING PUT ( UPDATE IN DATABASE )
 
-userRoutes.put("/:id",userController.updateUser)
+userRoutes.put("/:id",hashPassword,userController.updateUser)
 
 // USING DELETE ( DELETE IN DATABASE)
 
