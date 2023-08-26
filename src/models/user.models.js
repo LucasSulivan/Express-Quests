@@ -25,7 +25,7 @@ const create =(body)=> {
 // UPDATE USER FROM DATABASE
 
 const update = (id,body)=> {
-    return database.query(`UPDATE users SET ? WHERE id=${id} `, body)
+    return database.query(`UPDATE users SET ? WHERE id=? `, [body,id])
     .then(([updateUser])=> updateUser)
 }
 
@@ -36,6 +36,13 @@ const deleteUser =(id)=> {
     .then(([deleted])=> deleted)
 }
 
+//VALIDATION USER 
+
+const getEmailWithPassword =(email)=>{
+
+    return database.query("SELECT * FROM users WHERE email=?", [email] )
+    .then(([result])=> result)
+}
 
 
 
@@ -45,5 +52,6 @@ module.exports = {
     getUserById,
     create,
     update,
-    deleteUser
+    deleteUser,
+    getEmailWithPassword
 }

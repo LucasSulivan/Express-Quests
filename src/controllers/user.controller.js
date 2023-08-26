@@ -2,6 +2,7 @@ const userModels = require("../models/user.models")
 
 
 
+
 // READ THE ALL USERS FROM DATABASE
 
 const getUser = (req,res)=> {
@@ -95,6 +96,7 @@ const updateUser = (req,res)=>{
 
 
 // DELETE USER FROM DATA BASE USING DELETE
+
 const deleteUser = (req,res)=> {
     const { id } = req.params
     userModels.deleteUser(id)
@@ -111,6 +113,26 @@ const deleteUser = (req,res)=> {
     })
 }
 
+// PART OF VERIFY USER 
+
+const getUserByEmailWithPasswordAndPassNext=(req,res,next)=>{
+    const  {email}  = req.body;
+
+    userModels.getEmailWithPassword(email)
+    .then((users)=>{
+        if(users[0] != null){
+            req.user = users[0]
+            next();
+        } else {
+            res.sendStatus(401)
+        }
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error retrieving data from database");
+      })
+}
+
 
 
 
@@ -119,5 +141,6 @@ module.exports = {
     getUserById,
     postUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserByEmailWithPasswordAndPassNext
 }
